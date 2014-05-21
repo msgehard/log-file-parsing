@@ -19,6 +19,15 @@ class LogFile
     sorted_lines.select { |line| line.date == date }.length
   end
 
+  def number_of_lines_per_severity
+    result = {}
+    @lines.each do |line|
+      current_count = result.fetch(line.severity) { 0 }
+      result[line.severity] = current_count + 1
+    end
+    result
+  end
+
   private
 
   def sorted_lines
